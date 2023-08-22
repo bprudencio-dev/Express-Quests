@@ -19,12 +19,13 @@ app.post("/api/movies", movieHandlers.postMovie);
 app.put("/api/movies/:id", movieHandlers.updateMovie);
 app.delete("/api/movies/:id", movieHandlers.deleteMovie);
 
-const usersHandlers = require('./usersHandlers')
+const usersHandlers = require('./usersHandlers');
+const { hashPassword } = require('./auth');
 
 app.get("/api/users", usersHandlers.getUsers);
 app.get("/api/users/:id", usersHandlers.getUsersId);
-app.post("/api/users", usersHandlers.postUser)
-app.put("/api/users/:id", usersHandlers.updateUser)
+app.post("/api/users", hashPassword, usersHandlers.postUser)
+app.put("/api/users/:id", hashPassword,  usersHandlers.updateUser)
 app.delete("/api/users/:id", usersHandlers.deleteUser)
 
 
